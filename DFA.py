@@ -4,34 +4,30 @@ An implementation of a Deterministic Finite Automaton
 """
 import DFAState as state
 
-# States created from DFAState.create()
-q0 = state.create("q0")
-q1 = state.create("q1", True)
-# The current state (Starts at initial state)
-currentState = q0
-# The set of transitions implemented as a dictionairy with
-# the key being a tuple (state, letter) and the value being the next state
-# if there is no next state then we will represent it by None (Note: every null transition must be added here)
-transitions = {(q0, "0"):q1,
-               (q0, "1"):q0,
-               (q1, "0"):q0,
-               (q1, "1"):q1
-               }
+def run(initialState, transitions, w):
+    """
+    Runs a word through a DFA
+    :param initialState: The initial state of the DFA
+    :param transitions:
+        The set of transitions of the DFA. Represented as a dictionairy with key:value pairs
+        key: tuple (DFAState, character) and value: DFAState.
+        each pair represents a transition from a state on a letter.
+    :param w: the input word
+    :return: returns true if the word accepts, false otherwise
+    :analysis: Worst-case O(n) time complexity where n is the length of w
+    """
+    currentState = initialState
+    for letter in w:
+        # If there is no transition on a current letter then the machine crashes
+        if transitions[(currentState, letter)] is None:
+            break
+        else:
+            currentState = transitions[(currentState, letter)]
 
-# The word we will run through the DFA
-word = "0111001010"
-
-# Use the DFA to check the word in worst-case O(n) time where n is the length of the word
-for letter in word:
-    # If there is no transition on a current letter then the machine crashes
-    if transitions[(currentState, letter)] is None:
-        break
-    # Else switch to the new state
+    # If the last state was a final state then accept, otherwise reject
+    if state.isFinal(currentState):
+        return True
     else:
-        currentState = transitions[(currentState, letter)]
+        return False
 
-# If it ends in a final state then accept, otherwise reject
-if state.isFinal(currentState):
-    print("The word: " + word + " was accepted")
-else:
-    print("The word: " + word + " was rejected")
+
