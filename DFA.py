@@ -11,7 +11,7 @@ q1 = state.create("q1", True)
 currentState = q0
 # The set of transitions implemented as a dictionairy with
 # the key being a tuple (state, letter) and the value being the next state
-# if there is no next state then we will represent it by None
+# if there is no next state then we will represent it by None (Note: every null transition must be added here)
 transitions = {(q0, "0"):q1,
                (q0, "1"):q0,
                (q1, "0"):q0,
@@ -21,7 +21,7 @@ transitions = {(q0, "0"):q1,
 # The word we will run through the DFA
 word = "0111001010"
 
-# Use the DFA to check the word
+# Use the DFA to check the word in worst-case O(n) time where n is the length of the word
 for letter in word:
     # If there is no transition on a current letter then the machine crashes
     if transitions[(currentState, letter)] is None:

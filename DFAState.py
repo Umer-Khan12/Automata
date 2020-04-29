@@ -8,9 +8,9 @@ def create(name, final=False):
     Creates a new state for a DFA
     :param name: name of the state
     :param final: is it a final state? No by default
-    :return: the state as a dictionairy representation
+    :return: the state as a tuple
     """
-    return {'name':name, 'final':final}
+    return (name, final)
 
 def getName(state):
     """
@@ -19,7 +19,7 @@ def getName(state):
     :return: the name of the state (string)
     """
     assert state is not None, "getName called with no state"
-    return state['name']
+    return state[0]
 
 def isFinal(state):
     """
@@ -28,4 +28,4 @@ def isFinal(state):
     :return: True if it is a final state, False otherwise
     """
     assert state is not None, "isFinal called with no state"
-    return state['final']
+    return state[1]
