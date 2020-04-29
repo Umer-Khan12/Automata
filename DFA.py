@@ -1,12 +1,14 @@
 # Umer Khan 04/29/2020
 """
 An implementation of a Deterministic Finite Automaton
+Example test cases in DFATests.py
 """
 import DFAState as state
 
 def run(initialState, transitions, w):
     """
     Runs a word through a DFA
+    All states are represented as DFAState type
     :param initialState: The initial state of the DFA
     :param transitions:
         The set of transitions of the DFA. Represented as a dictionairy with key:value pairs
@@ -29,5 +31,4 @@ def run(initialState, transitions, w):
         return True
     else:
         return False
-
 
